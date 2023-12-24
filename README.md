@@ -1,39 +1,79 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# BubbleNavigationBar
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+Easy to use Flutter bubble bottom navigation bar
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+## Preview
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+<!-- <img src="https://raw.githubusercontent.com/AllinMobile/SnakeBottomNavigationBar/master/preview/preview.gif" height="500em"> -->
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
+To use this plugin, add bubble_navigation_bar as a dependency in your [pubspec.yaml](https://flutter.io/using-packages/) file.
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+BubbleNavigationBar is very easy to use, like BottomNavigationBar. BubbleNavItem is used for navigation items.
+
+```dart
+Scaffold(
+    bottomNavigationBar: BubbleNavigationBar(
+    currentIndex: _index,
+    onIndexChanged: (index) {
+        setState(() {
+        _index = index;
+        });
+    },
+    items: const [
+        BubbleNavItem(
+        icon: Icon(Icons.home),
+        label: 'Home',
+        ),
+        BubbleNavItem(
+        icon: Icon(Icons.color_lens),
+        label: 'Colors',
+        ),
+        BubbleNavItem(
+        icon: Icon(Icons.star),
+        label: 'Favorite',
+        ),
+        BubbleNavItem(
+        icon: Icon(Icons.person),
+        label: 'Profile',
+        ),
+        BubbleNavItem(
+        icon: Icon(Icons.settings),
+        label: 'Settings',
+        ),
+    ],
+    ),
+)
+```
+
+```dart
+/// Current index of navigation
+  final int currentIndex;
+
+  /// Must be specified [BubbleNavItem] at least two
+  final List<BubbleNavItem> items;
+
+  /// Watch the navigation changes
+  final void Function(int index) onIndexChanged;
+
+  /// The padding of the whole navigation bar
+  /// default is 24x8
+  final EdgeInsetsGeometry? padding;
+
+  /// To hide or show the selected label
+  /// default is [true]
+  final bool showSelectedLabel;
+
+  /// Override the navigation colors
+  final Color? backgroundColor, selectedItemColor, unselectedItemColor;
+
+  /// Customize the iconSize
+  /// default [24]
+  final double? iconSize;
+
+  /// Customize the label style
+  final TextStyle? labelStyle;
+```
