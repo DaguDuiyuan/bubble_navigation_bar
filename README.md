@@ -1,11 +1,12 @@
 # BubbleNavigationBar
 
-Easy to use Flutter bubble bottom navigation bar
+Easy to use Flutter bubble bottom navigation bar 
 
 ## Preview
 
 <img src="https://raw.githubusercontent.com/ygnCybernoob/bubble_navigation_bar/main/gif/preview1.gif" height="500em">
 <img src="https://raw.githubusercontent.com/ygnCybernoob/bubble_navigation_bar/main/gif/preview2.gif" height="500em">
+
 ## Usage
 
 To use this plugin, add bubble_navigation_bar as a dependency in your [pubspec.yaml](https://flutter.io/using-packages/) file.
