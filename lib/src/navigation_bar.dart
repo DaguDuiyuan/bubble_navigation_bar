@@ -19,6 +19,8 @@ class BubbleNavigationBar extends StatefulWidget {
   /// default is [true]
   final bool showSelectedLabel;
 
+  final Color? labelBackgroundColor;
+
   /// Override the navigation colors
   final Color? backgroundColor, selectedItemColor, unselectedItemColor;
 
@@ -29,18 +31,18 @@ class BubbleNavigationBar extends StatefulWidget {
   /// Customize the label style
   final TextStyle? labelStyle;
 
-  const BubbleNavigationBar(
-      {super.key,
-      required this.currentIndex,
-      required this.items,
-      required this.onIndexChanged,
-      this.padding,
-      this.showSelectedLabel = true,
-      this.backgroundColor,
-      this.selectedItemColor,
-      this.unselectedItemColor,
-      this.iconSize,
-      this.labelStyle})
+  const BubbleNavigationBar({super.key,
+    required this.currentIndex,
+    required this.items,
+    required this.onIndexChanged,
+    this.padding,
+    this.showSelectedLabel = true,
+    this.labelBackgroundColor,
+    this.backgroundColor,
+    this.selectedItemColor,
+    this.unselectedItemColor,
+    this.iconSize,
+    this.labelStyle})
       : assert(items.length >= 2);
 
   @override
@@ -73,7 +75,8 @@ class _BubbleNavigationBarState extends State<BubbleNavigationBar> {
         text: widget.items[_currentIndex].label,
       ),
       textDirection: TextDirection.ltr, // Specify text direction
-    )..layout();
+    )
+      ..layout();
 
     double iconSize = widget.iconSize ?? 24.0;
     TextStyle labelStyle = widget.labelStyle ?? const TextStyle();
@@ -85,7 +88,10 @@ class _BubbleNavigationBarState extends State<BubbleNavigationBar> {
         widget.padding ?? const EdgeInsets.symmetric(horizontal: 24);
 
     double totalWidth =
-        MediaQuery.of(context).size.width - (padding.horizontal);
+        MediaQuery
+            .of(context)
+            .size
+            .width - (padding.horizontal);
     double totalItemWidth =
         selectedItemWidth + ((widget.items.length - 1) * normalItemWidth);
 
@@ -97,7 +103,11 @@ class _BubbleNavigationBarState extends State<BubbleNavigationBar> {
 
       Color itemColor = widget.selectedItemColor ??
           item.color ??
-          Theme.of(context).canvasColor;
+          Theme
+              .of(context)
+              .canvasColor;
+
+      Color labelBackgroundColor = widget.labelBackgroundColor ?? itemColor.withOpacity(40);
 
       if (!selected) {
         itemColor = widget.unselectedItemColor ?? itemColor;
@@ -105,16 +115,16 @@ class _BubbleNavigationBarState extends State<BubbleNavigationBar> {
 
       var itemPadding = _currentIndex == index
           ? const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 8,
-            )
+        horizontal: 12,
+        vertical: 8,
+      )
           : const EdgeInsets.symmetric(
-              horizontal: 0,
-              vertical: 8,
-            );
+        horizontal: 0,
+        vertical: 8,
+      );
 
       double itemWidth =
-          _currentIndex == index ? selectedItemWidth : normalItemWidth;
+      _currentIndex == index ? selectedItemWidth : normalItemWidth;
 
       navItems.add(AnimatedPositioned(
         top: 0,
@@ -151,14 +161,14 @@ class _BubbleNavigationBarState extends State<BubbleNavigationBar> {
                   duration: const Duration(milliseconds: 360),
                   decoration: BoxDecoration(
                     color:
-                        _currentIndex == index ? itemColor.withAlpha(40) : null,
+                    _currentIndex == index ? labelBackgroundColor : null,
                     borderRadius: BorderRadius.circular(40),
                   ),
                   padding: itemPadding,
                   child: Theme(
                     data: ThemeData(
                       iconTheme:
-                          IconThemeData(color: itemColor, size: iconSize),
+                      IconThemeData(color: itemColor, size: iconSize),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -195,8 +205,10 @@ class _BubbleNavigationBarState extends State<BubbleNavigationBar> {
     return Material(
       child: Container(
         height:
-            64 + (widget.padding == null ? 0 : widget.padding!.vertical * 2),
-        color: widget.backgroundColor ?? Theme.of(context).primaryColor,
+        64 + (widget.padding == null ? 0 : widget.padding!.vertical * 2),
+        color: widget.backgroundColor ?? Theme
+            .of(context)
+            .primaryColor,
         child: Stack(
           children: [
             ...navItems,
